@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
-  imports: [TasksModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017', {
+      dbName: 'nestjs',
+      useFindAndModify: false,
+      useNewUrlParser: true,
+    }),
+    TasksModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
